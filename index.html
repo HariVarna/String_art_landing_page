@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The String Art Studio | Handcrafted Timeless Art</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Scroll sequence animation wrapper -->
+    <div id="animation-container">
+        
+        <!-- Canvas fixed layer -->
+        <div id="canvas-wrapper">
+            
+            <!-- Reference Image Container (Luffy Transition) -->
+            <div id="reference-wrapper">
+                <div id="reference-image-container">
+                    <img id="ref-color" src="luffy.jpg" alt="Luffy Original Color Reference">
+                    <img id="ref-grey" src="luffy2.png" alt="Luffy Greyscale Reference">
+                </div>
+                <div id="timelapse-label">Building Blueprint...</div>
+            </div>
+
+            <canvas id="string-art-canvas"></canvas>
+            
+            <!-- Hero Overlay (Fades out when animation starts) -->
+            <div id="hero-overlay">
+                <p class="subtitle">Handcrafted, one nail at a time.</p>
+                <h1>Watch The Anime Legend<br><span>Turn to Art</span></h1>
+            </div>
+            
+            <button id="sticky-cta">Create Your Custom Piece</button>
+        </div>
+        
+        <!-- The actual height-giving scroll blocks (8 blocks = very cinematic slow scroll) -->
+        <div class="scroll-track-section" id="track-1"></div>
+        <div class="scroll-track-section" id="track-2"></div>
+        <div class="scroll-track-section" id="track-3"></div>
+        <div class="scroll-track-section" id="track-4"></div>
+        <div class="scroll-track-section" id="track-5"></div>
+        <div class="scroll-track-section" id="track-6"></div>
+        <div class="scroll-track-section" id="track-7"></div>
+        <div class="scroll-track-section" id="track-8"></div>
+    </div>
+
+    <!-- Content Sections Flowing Normally Below Animation -->
+    <main id="main-content" class="content-wrapper">
+        
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="container two-col">
+                <div class="col text-col">
+                    <span class="section-badge">Our Craft</span>
+                    <h2>Patience in Every Thread</h2>
+                    <p>There is a unique magic in watching raw materials transform. Every nail placed, every thread woven, is a testament to the dedication we pour into our art. At The String Art Studio, we believe true luxury lies in the handmade touches that no machine can replicate.</p>
+                    <p>Your story, told through geometric harmony and tactile warmth.</p>
+                </div>
+                <div class="col img-col">
+                    <img src="https://images.unsplash.com/photo-1615172282427-8a60965b3260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Detail of handmade string art" class="rounded-img" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Showcase Section -->
+        <section id="products" class="content-section dark-bg">
+            <div class="container">
+                <div class="section-header center">
+                    <span class="section-badge">Collections</span>
+                    <h2>Exclusive Masterpieces</h2>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="card-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1615172284764-05537e2ab7ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Custom Name Boards">
+                        </div>
+                        <h3>Custom Name Boards</h3>
+                        <p>Perfect for nurseries or personal gifts.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="card-img-wrap">
+                            <img src="https://plus.unsplash.com/premium_photo-1664112065842-835694a50090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Couple Portraits">
+                        </div>
+                        <h3>Couple Portraits</h3>
+                        <p>Immortalize your favorite memories beautifully.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="card-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pet Portraits">
+                        </div>
+                        <h3>Pet Portraits</h3>
+                        <p>Detailed thread work honoring your furry friends.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="card-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1499249615617-6db27f549aef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Quote Designs">
+                        </div>
+                        <h3>Quote Designs</h3>
+                        <p>Inspirational words woven with elegant precision.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customization Section -->
+        <section id="customize" class="content-section">
+            <div class="container two-col reverse">
+                <div class="col text-col">
+                    <span class="section-badge">Personalize</span>
+                    <h2>Your Vision. Our Canvas.</h2>
+                    <p>Experience the joy of designing your own piece. Choose your base, select the thread colors, and decide the complexity.</p>
+                    
+                    <form class="customizer-ui" onsubmit="event.preventDefault();">
+                        <div class="input-group">
+                            <label>Text or Name</label>
+                            <input type="text" placeholder="e.g. The Smiths">
+                        </div>
+                        <div class="input-group upload-btn-wrapper">
+                            <button class="btn btn-outline">Upload Reference Image</button>
+                            <input type="file" name="myfile" />
+                        </div>
+                        <div class="color-picker">
+                            <label>Primary Thread Color</label>
+                            <div class="color-swatches">
+                                <span class="swatch active" style="background: #E8D2A6;"></span>
+                                <span class="swatch" style="background: #D98324;"></span>
+                                <span class="swatch" style="background: #B43F3F;"></span>
+                                <span class="swatch" style="background: #1C3879;"></span>
+                                <span class="swatch" style="background: #F9F5EB;"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col preview-col">
+                    <div class="mockup-plate">
+                        <div class="mockup-content">
+                            Interactive Preview Area
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="content-section light-bg">
+            <div class="container">
+                <div class="section-header center">
+                    <h2>How It Comes to Life</h2>
+                </div>
+                <div class="steps-row">
+                    <div class="step">
+                        <div class="step-num">01</div>
+                        <h4>Submit Idea</h4>
+                        <p>Share your vision and preferences with us.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">02</div>
+                        <h4>We Design It</h4>
+                        <p>We create a digital template mapping every nail.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">03</div>
+                        <h4>Handcrafting</h4>
+                        <p>Hours of meticulous weaving begin in our studio.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">04</div>
+                        <h4>Delivery</h4>
+                        <p>Your bespoke artwork arrives securely packaged.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing & Final CTA -->
+        <section id="cta" class="content-section dark-bg text-center">
+            <div class="container narrow">
+                <span class="section-badge highlight">Limited Weekly Slots</span>
+                <h2>Begin Your Masterpiece</h2>
+                <p class="pricing-text">Starting from <span>₹499</span>. Pricing varies by complexity and size. Secure your spot in our crafting schedule.</p>
+                <div class="action-buttons">
+                    <button class="btn btn-primary">Start Custom Design</button>
+                    <button class="btn btn-secondary whatsapp-btn">WhatsApp Us</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="f-col brand-col">
+                    <h3>The String Art Studio</h3>
+                    <p>Interwoven threads of passion and craftsmanship.</p>
+                </div>
+                <div class="f-col links-col">
+                    <h4>Explore</h4>
+                    <a href="#about">Our Story</a>
+                    <a href="#products">Collections</a>
+                    <a href="#how-it-works">Process</a>
+                </div>
+                <div class="f-col contact-col">
+                    <h4>Connect</h4>
+                    <p>hello@stringartstudio.com</p>
+                    <p>Instagram: @stringart_studio</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 The String Art Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP / ScrollTrigger / Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
