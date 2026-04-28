@@ -7,9 +7,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Sticky Sliding Task Bar -->
+    <header id="site-header">
+        <div class="header-container">
+            <h2 class="header-title cursive-brand">The String Art Studio</h2>
+        </div>
+    </header>
 
     <!-- Scroll sequence animation wrapper -->
     <div id="animation-container">
@@ -30,11 +38,8 @@
             
             <!-- Hero Overlay (Fades out when animation starts) -->
             <div id="hero-overlay">
-                <p class="subtitle">Handcrafted, one nail at a time.</p>
-                <h1>Watch The Anime Legend<br><span>Turn to Art</span></h1>
+                <h1 class="cursive-brand">The String Art Studio</h1>
             </div>
-            
-            <button id="sticky-cta">Create Your Custom Piece</button>
         </div>
         
         <!-- The actual height-giving scroll blocks (8 blocks = very cinematic slow scroll) -->
@@ -107,44 +112,7 @@
             </div>
         </section>
 
-        <!-- Customization Section -->
-        <section id="customize" class="content-section">
-            <div class="container two-col reverse">
-                <div class="col text-col">
-                    <span class="section-badge">Personalize</span>
-                    <h2>Your Vision. Our Canvas.</h2>
-                    <p>Experience the joy of designing your own piece. Choose your base, select the thread colors, and decide the complexity.</p>
-                    
-                    <form class="customizer-ui" onsubmit="event.preventDefault();">
-                        <div class="input-group">
-                            <label>Text or Name</label>
-                            <input type="text" placeholder="e.g. The Smiths">
-                        </div>
-                        <div class="input-group upload-btn-wrapper">
-                            <button class="btn btn-outline">Upload Reference Image</button>
-                            <input type="file" name="myfile" />
-                        </div>
-                        <div class="color-picker">
-                            <label>Primary Thread Color</label>
-                            <div class="color-swatches">
-                                <span class="swatch active" style="background: #E8D2A6;"></span>
-                                <span class="swatch" style="background: #D98324;"></span>
-                                <span class="swatch" style="background: #B43F3F;"></span>
-                                <span class="swatch" style="background: #1C3879;"></span>
-                                <span class="swatch" style="background: #F9F5EB;"></span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col preview-col">
-                    <div class="mockup-plate">
-                        <div class="mockup-content">
-                            Interactive Preview Area
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- How It Works Section -->
         <section id="how-it-works" class="content-section light-bg">

@@ -339,8 +339,15 @@ tl.to(state, { stringArtImageFade: 1, duration: 5, ease: "power2.inOut" }, "time
 
 // PHASE 8: Polish & Presentation
 tl.to(state, { boardScale: 1.05, duration: 0.5 }, "finish");
-tl.to("#sticky-cta", { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "+=0.2");
 
 // PHASE 9: Scroll into Site Content
 tl.to(state, { boardY: -height * 0.4, boardAlpha: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
 tl.to("#reference-wrapper", { top: "20%", opacity: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
+
+// Reveal Sticky Title Bar after the scroll animation sequence
+ScrollTrigger.create({
+    trigger: "#main-content",
+    start: "top top+=100",
+    onEnter: () => document.getElementById("site-header").classList.add("visible"),
+    onLeaveBack: () => document.getElementById("site-header").classList.remove("visible")
+});
