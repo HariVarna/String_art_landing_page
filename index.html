@@ -23,7 +23,7 @@
         <div class="header-container">
             <h2 class="header-title cursive-brand">The String Art Studio</h2>
             <div class="header-actions">
-                <a href="mailto:thestringartstudio@gmail.com" class="btn btn-primary top-order-btn">Order Now</a>
+                <button onclick="openOrderModal()" class="btn btn-primary top-order-btn">Order Now</button>
             </div>
         </div>
     </header>
@@ -156,8 +156,8 @@
                 <p class="pricing-text">Pricing varies by complexity and size. Secure your spot in our crafting schedule.</p>
                 <p class="urgency-text"><em>Please note: As every piece is meticulously handcrafted with love, it takes time to perfect. We kindly encourage you to place your order at your earliest convenience. Early birds always receive our utmost priority!</em></p>
                 <div class="action-buttons">
-                    <a href="mailto:thestringartstudio@gmail.com" class="btn btn-primary">Order Now</a>
-                    <a href="mailto:thestringartstudio@gmail.com" class="btn btn-secondary whatsapp-btn">Contact Us</a>
+                    <button onclick="openOrderModal()" class="btn btn-primary">Order Now</button>
+                    <button onclick="openOrderModal()" class="btn btn-secondary whatsapp-btn">Contact Us</button>
                 </div>
             </div>
         </section>
@@ -194,6 +194,36 @@
             </div>
         </div>
     </footer>
+
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeOrderModal()">×</button>
+            <h3 class="modal-title">Begin Your Order</h3>
+            <p class="modal-subtitle">Choose your preferred way to reach out to us.</p>
+            
+            <div id="modal-options">
+                <a href="https://www.instagram.com/_the._.string._.art._.studio_/" target="_blank" rel="noopener noreferrer" class="modal-option-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    Instagram
+                </a>
+                <button class="modal-option-btn" onclick="showEmailOption()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Email
+                </button>
+            </div>
+
+            <div id="modal-email-view" style="display: none;">
+                <p>Copy our email address below:</p>
+                <div class="email-copy-box">
+                    <span id="email-text">thestringartstudio@gmail.com</span>
+                    <button class="btn btn-primary btn-sm" onclick="copyEmail()">Copy</button>
+                </div>
+                <p id="copy-feedback" class="copy-feedback"></p>
+                <button class="back-btn" onclick="showOptionsView()">← Back</button>
+            </div>
+        </div>
+    </div>
 
     <!-- GSAP / ScrollTrigger / Script -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>

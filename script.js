@@ -400,3 +400,36 @@ ScrollTrigger.create({
     onEnter: () => document.getElementById("site-header").classList.add("visible"),
     onLeaveBack: () => document.getElementById("site-header").classList.remove("visible")
 });
+
+// ------------------------------------------------------------------
+// Modal Logic
+// ------------------------------------------------------------------
+function openOrderModal() {
+    document.getElementById('order-modal').classList.add('active');
+    showOptionsView(); // reset to default view
+}
+
+function closeOrderModal() {
+    document.getElementById('order-modal').classList.remove('active');
+}
+
+function showEmailOption() {
+    document.getElementById('modal-options').style.display = 'none';
+    document.getElementById('modal-email-view').style.display = 'block';
+    document.getElementById('copy-feedback').textContent = '';
+}
+
+function showOptionsView() {
+    document.getElementById('modal-options').style.display = 'block';
+    document.getElementById('modal-email-view').style.display = 'none';
+}
+
+function copyEmail() {
+    const email = document.getElementById('email-text').textContent;
+    navigator.clipboard.writeText(email).then(() => {
+        document.getElementById('copy-feedback').textContent = 'Email copied to clipboard!';
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        document.getElementById('copy-feedback').textContent = 'Failed to copy. Please select and copy manually.';
+    });
+}
