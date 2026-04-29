@@ -1,5 +1,15 @@
 gsap.registerPlugin(ScrollTrigger);
 
+// Initialize Lenis
+const lenis = new Lenis()
+lenis.on('scroll', ScrollTrigger.update)
+
+gsap.ticker.add((time)=>{
+  lenis.raf(time * 1000)
+})
+
+gsap.ticker.lagSmoothing(0)
+
 const canvas = document.getElementById("string-art-canvas");
 const ctx = canvas.getContext("2d");
 let width, height, centerX, centerY, radius;
@@ -55,6 +65,45 @@ for (let i = 0; i < NUM_FAKE_THREADS; i++) {
         currentJump = Math.floor(Math.random() * 40) + 30; // 30 to 70 jump logic
     }
 }
+
+// Theme Logic for Board Color
+let currentTheme = {
+    c1: "#ffffff",
+    c2: "#e8ebf0",
+    c3: "#b0bac9",
+    border: "#563215"
+};
+
+function setTheme(themeName) {
+    document.documentElement.setAttribute('data-theme', themeName);
+    
+    // Update active button
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if(btn.getAttribute('data-theme') === themeName) {
+            btn.classList.add('active');
+        }
+    });
+
+    if (themeName === 'wood') {
+        currentTheme = {
+            c1: "#ffffff",
+            c2: "#e8ebf0",
+            c3: "#b0bac9",
+            border: "#563215"
+        };
+    } else {
+        // Marble
+        currentTheme = {
+            c1: "#ffffff",
+            c2: "#e8ebf0",
+            c3: "#b0bac9",
+            border: "#808c9f"
+        };
+    }
+}
+// Default Theme
+setTheme('wood');
 
 // GSAP State Object
 const state = {
@@ -114,11 +163,11 @@ function render() {
         ctx.shadowBlur = 40;
         ctx.shadowOffsetY = 20;
 
-        // Moonstone aesthetic: Pearlescent, cool, icy whites
+        // Dynamic Board Colors
         const boardGrad = ctx.createRadialGradient(0, 0, radius * 0.1, 0, 0, radius);
-        boardGrad.addColorStop(0, "#Fcfcfd"); // Very bright icy white
-        boardGrad.addColorStop(0.7, "#e4e8ef"); // Soft cold grey
-        boardGrad.addColorStop(1, "#c0c7d4"); // Deep moonstone edge
+        boardGrad.addColorStop(0, currentTheme.c1);
+        boardGrad.addColorStop(0.7, currentTheme.c2);
+        boardGrad.addColorStop(1, currentTheme.c3);
         
         ctx.beginPath();
         ctx.arc(0, 0, radius + 20, 0, Math.PI * 2);
@@ -130,7 +179,7 @@ function render() {
         
         // Edge ring
         ctx.lineWidth = 4;
-        ctx.strokeStyle = "#a9b1c2";
+        ctx.strokeStyle = currentTheme.border;
         ctx.stroke();
     }
 

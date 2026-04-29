@@ -12,10 +12,19 @@
 </head>
 <body>
 
+    <!-- Theme Switcher -->
+    <div id="theme-switcher">
+        <button class="theme-btn active" onclick="setTheme('wood')" data-theme="wood">Wood Theme</button>
+        <button class="theme-btn" onclick="setTheme('marble')" data-theme="marble">Marble Theme</button>
+    </div>
+
     <!-- Sticky Sliding Task Bar -->
     <header id="site-header">
         <div class="header-container">
             <h2 class="header-title cursive-brand">The String Art Studio</h2>
+            <div class="header-actions">
+                <a href="mailto:thestringartstudio@gmail.com" class="btn btn-primary top-order-btn">Order Now</a>
+            </div>
         </div>
     </header>
 
@@ -66,7 +75,7 @@
                     <p>Your story, told through geometric harmony and tactile warmth.</p>
                 </div>
                 <div class="col img-col">
-                    <img src="https://images.unsplash.com/photo-1615172282427-8a60965b3260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Detail of handmade string art" class="rounded-img" />
+                    <img src="our_craft.jpeg" alt="Detail of handmade string art" class="rounded-img" />
                 </div>
             </div>
         </section>
@@ -82,31 +91,24 @@
                 <div class="product-grid">
                     <div class="product-card">
                         <div class="card-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1615172284764-05537e2ab7ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Custom Name Boards">
+                            <img src="man_potrait.png" alt="Face Portraits">
                         </div>
-                        <h3>Custom Name Boards</h3>
-                        <p>Perfect for nurseries or personal gifts.</p>
+                        <h3>Face Portraits</h3>
+                        <p>Turn a loved one's face into a masterpiece. Intricate detailing captures facial expressions flawlessly in threads.</p>
                     </div>
                     <div class="product-card">
                         <div class="card-img-wrap">
-                            <img src="https://plus.unsplash.com/premium_photo-1664112065842-835694a50090?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Couple Portraits">
+                            <img src="couple_potrait.png" alt="Couple Portraits">
                         </div>
                         <h3>Couple Portraits</h3>
-                        <p>Immortalize your favorite memories beautifully.</p>
+                        <p>Capture the depth of your bond. We meticulously translate your favorite photographs into a breathtaking interplay of shadows and delicate thread lines.</p>
                     </div>
                     <div class="product-card">
                         <div class="card-img-wrap">
                             <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pet Portraits">
                         </div>
                         <h3>Pet Portraits</h3>
-                        <p>Detailed thread work honoring your furry friends.</p>
-                    </div>
-                    <div class="product-card">
-                        <div class="card-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1499249615617-6db27f549aef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Quote Designs">
-                        </div>
-                        <h3>Quote Designs</h3>
-                        <p>Inspirational words woven with elegant precision.</p>
+                        <p>Honor your beloved furry companions with a portrait that perfectly captures their spirit and warmth through thousands of precise, loving weaves.</p>
                     </div>
                 </div>
             </div>
@@ -119,27 +121,28 @@
             <div class="container">
                 <div class="section-header center">
                     <h2>How It Comes to Life</h2>
+                    <p style="max-width: 600px; margin: 0 auto 40px;">Every masterpiece begins with a simple thought. We pour our hearts into turning your cherished memories into an enduring work of art, threading a journey of emotion, patience, and love.</p>
                 </div>
                 <div class="steps-row">
                     <div class="step">
                         <div class="step-num">01</div>
-                        <h4>Submit Idea</h4>
-                        <p>Share your vision and preferences with us.</p>
+                        <h4>Share Your Heart</h4>
+                        <p>Tell us the story or memory you want to preserve. Your vision is the spark that ignites our creative process.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">02</div>
-                        <h4>We Design It</h4>
-                        <p>We create a digital template mapping every nail.</p>
+                        <h4>The Blueprint</h4>
+                        <p>We delicately map out your artwork, planning the placement of every single nail to capture the perfect essence.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">03</div>
-                        <h4>Handcrafting</h4>
-                        <p>Hours of meticulous weaving begin in our studio.</p>
+                        <h4>Woven with Love</h4>
+                        <p>In our studio, hours slip away as we meticulously interlace hundreds of threads, bringing your story to life.</p>
                     </div>
                     <div class="step">
                         <div class="step-num">04</div>
-                        <h4>Delivery</h4>
-                        <p>Your bespoke artwork arrives securely packaged.</p>
+                        <h4>Yours Forever</h4>
+                        <p>Carefully packaged and sent to your doorstep—a timeless keepsake ready to warm your home and heart.</p>
                     </div>
                 </div>
             </div>
@@ -150,10 +153,11 @@
             <div class="container narrow">
                 <span class="section-badge highlight">Limited Weekly Slots</span>
                 <h2>Begin Your Masterpiece</h2>
-                <p class="pricing-text">Starting from <span>₹499</span>. Pricing varies by complexity and size. Secure your spot in our crafting schedule.</p>
+                <p class="pricing-text">Pricing varies by complexity and size. Secure your spot in our crafting schedule.</p>
+                <p class="urgency-text"><em>Please note: As every piece is meticulously handcrafted with love, it takes time to perfect. We kindly encourage you to place your order at your earliest convenience. Early birds always receive our utmost priority!</em></p>
                 <div class="action-buttons">
-                    <button class="btn btn-primary">Start Custom Design</button>
-                    <button class="btn btn-secondary whatsapp-btn">WhatsApp Us</button>
+                    <a href="mailto:thestringartstudio@gmail.com" class="btn btn-primary">Order Now</a>
+                    <a href="mailto:thestringartstudio@gmail.com" class="btn btn-secondary whatsapp-btn">Contact Us</a>
                 </div>
             </div>
         </section>
@@ -175,8 +179,14 @@
                 </div>
                 <div class="f-col contact-col">
                     <h4>Connect</h4>
-                    <p>hello@stringartstudio.com</p>
-                    <p>Instagram: @stringart_studio</p>
+                    <a href="mailto:thestringartstudio@gmail.com" class="contact-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        thestringartstudio@gmail.com
+                    </a>
+                    <a href="https://www.instagram.com/_the._.string._.art._.studio_/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        @_the._.string._.art._.studio_
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -186,6 +196,7 @@
     </footer>
 
     <!-- GSAP / ScrollTrigger / Script -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
