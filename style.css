@@ -60,6 +60,7 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     overflow-x: hidden;
+    zoom: 0.75;
 }
 
 h1 { font-size: 4rem; letter-spacing: -1px; font-weight: 300; margin-bottom: 0.5rem; }
@@ -80,11 +81,11 @@ p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem; }
     position: fixed; top: -100px; left: 0; width: 100%; z-index: 1000;
     transition: top 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     background: var(--header-bg); border-bottom: 1px solid var(--border-color);
-    padding: 15px 40px; box-sizing: border-box; backdrop-filter: blur(5px);
+    padding: 10px 40px; box-sizing: border-box; backdrop-filter: blur(5px);
 }
 #site-header.visible { top: 0; }
 .header-container { align-items: center; display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
-.header-title.cursive-brand { font-size: 2.5rem; margin-bottom: 0; color: var(--text-primary); }
+.header-title.cursive-brand { font-size: 2rem; margin-bottom: 0; color: var(--text-primary); }
 
 .cursive-brand { font-family: 'Alex Brush', cursive, var(--font-serif); font-size: 5rem; font-weight: 400; line-height: 1.1; color: var(--text-primary); }
 
