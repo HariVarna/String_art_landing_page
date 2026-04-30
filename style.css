@@ -87,7 +87,7 @@ p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem; }
 .header-container { align-items: center; display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
 .header-title.cursive-brand { font-size: 2rem; margin-bottom: 0; color: var(--text-primary); }
 
-.cursive-brand { font-family: 'Alex Brush', cursive, var(--font-serif); font-size: 5rem; font-weight: 400; line-height: 1.1; color: var(--text-primary); }
+.cursive-brand { font-family: 'Alex Brush', cursive, var(--font-serif); font-size: 3.5rem; font-weight: 400; line-height: 1.1; color: var(--text-primary); }
 
 /* Scroll Animation Sequence Area */
 #animation-container { position: relative; width: 100%; }
@@ -235,7 +235,7 @@ canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer
     .steps-row { grid-template-columns: repeat(2, 1fr); gap: 40px; }
     .footer-grid { grid-template-columns: 1fr; }
     #hero-overlay { width: 90%; }
-    .cursive-brand { font-size: 3.5rem; }
+    .cursive-brand { font-size: 2.5rem; }
 }
 @media (max-width: 600px) {
     .steps-row { grid-template-columns: 1fr; }
