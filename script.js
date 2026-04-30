@@ -103,7 +103,7 @@ function setTheme(themeName) {
     }
 }
 // Default Theme
-setTheme('wood');
+setTheme('marble');
 
 // GSAP State Object
 const state = {
