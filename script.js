@@ -128,6 +128,7 @@ const state = {
     // DOM States
     refWrapperOpacity: 0,
     refWrapperX: 0,
+    refWrapperY: 0,
     refContainerRadius: 0, 
     refGreyOpacity: 0,
     
@@ -283,7 +284,7 @@ function render() {
     
     const refWrapper = document.getElementById("reference-wrapper");
     refWrapper.style.opacity = state.refWrapperOpacity;
-    refWrapper.style.transform = `translate(calc(-50% + ${state.refWrapperX}px), -50%)`;
+    refWrapper.style.transform = `translate(calc(-50% + ${state.refWrapperX}px), calc(-50% + ${state.refWrapperY}px))`;
     
     document.getElementById("reference-image-container").style.borderRadius = `${state.refContainerRadius}%`;
     document.getElementById("ref-grey").style.opacity = state.refGreyOpacity;
@@ -338,15 +339,42 @@ const tl = gsap.timeline({
         trigger: "#animation-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.2 // very smooth dampening
+        scrub: 1.2, // very smooth dampening
+        invalidateOnRefresh: true // Re-evaluates function-based values on resize
     }
 });
 
-// Used for side-by-side transition
-const sideOffset = window.innerWidth * 0.22;
+// Dynamic values helper functions for responsiveness
+const getSideOffset = () => {
+    const isMobile = window.innerWidth <= 768;
+    return window.innerWidth * (isMobile ? 0.15 : 0.22); // Closer on mobile (15% vs 22%)
+};
+
+const getBoardSplitScale = () => {
+    const isMobile = window.innerWidth <= 768;
+    return isMobile ? 0.58 : 1.0;
+};
+
+const getBoardPresentationScale = () => {
+    const isMobile = window.innerWidth <= 768;
+    return isMobile ? 0.70 : 1.05;
+};
 
 // PHASE 1: Board drops & Hero fades
-tl.to(state, { boardY: 0, boardScale: 1, boardAlpha: 1, duration: 1.5, ease: "power2.out" })
+tl.fromTo(state, 
+    { 
+        boardY: () => -window.innerHeight * 1.5, 
+        boardScale: 1.2, 
+        boardAlpha: 0 
+    },
+    { 
+        boardY: 0, 
+        boardScale: 1, 
+        boardAlpha: 1, 
+        duration: 1.5, 
+        ease: "power2.out" 
+    }
+  )
   .to(state, { heroOpacity: 0, duration: 0.5 }, "-=0.5");
 
 // PHASE 2: Extreme Close-Up (Camera follows nail smoothly)
@@ -372,9 +400,20 @@ tl.to(state, {
 tl.to(state, { nailProgress: 1, duration: 3, ease: "power1.inOut" }, "zoomOut");
 
 // PHASE 5: Split Screen Setup for Luffy Images
-tl.to(state, { boardX: sideOffset, duration: 1.5, ease: "power2.inOut" }, "split");
+tl.to(state, { 
+    boardX: () => getSideOffset(), 
+    boardY: 0, 
+    boardScale: () => getBoardSplitScale(), 
+    duration: 1.5, 
+    ease: "power2.inOut" 
+}, "split");
 tl.to(state, { refWrapperOpacity: 1, duration: 0.5 }, "split");
-tl.to(state, { refWrapperX: -sideOffset, duration: 1.5, ease: "power2.inOut" }, "split");
+tl.to(state, { 
+    refWrapperX: () => -getSideOffset(), 
+    refWrapperY: 0, 
+    duration: 1.5, 
+    ease: "power2.inOut" 
+}, "split");
 
 // PHASE 6: Luffy Transition -> Greyscale & Crop
 tl.to(state, { refGreyOpacity: 1, duration: 1 }, "transform");
@@ -387,11 +426,11 @@ tl.to(state, { threadProgress: NUM_FAKE_THREADS, duration: 5, ease: "power1.inOu
 tl.to(state, { stringArtImageFade: 1, duration: 5, ease: "power2.inOut" }, "timelapse");
 
 // PHASE 8: Polish & Presentation
-tl.to(state, { boardScale: 1.05, duration: 0.5 }, "finish");
+tl.to(state, { boardScale: () => getBoardPresentationScale(), duration: 0.5 }, "finish");
 
 // PHASE 9: Scroll into Site Content
-tl.to(state, { boardY: -height * 0.4, boardAlpha: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
-tl.to("#reference-wrapper", { top: "20%", opacity: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
+tl.to(state, { boardY: () => -window.innerHeight * 0.4, boardAlpha: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
+tl.to(state, { refWrapperOpacity: 0, refWrapperY: () => -window.innerHeight * 0.4, duration: 1.5, ease: "power1.inOut" }, "exit");
 
 // Reveal Sticky Title Bar after the scroll animation sequence
 ScrollTrigger.create({
