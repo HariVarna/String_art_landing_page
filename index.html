@@ -13,9 +13,23 @@
 <body>
 
     <!-- Theme Switcher -->
-    <div id="theme-switcher">
-        <button class="theme-btn" onclick="setTheme('wood')" data-theme="wood">Wood Theme</button>
-        <button class="theme-btn active" onclick="setTheme('marble')" data-theme="marble">Marble Theme</button>
+    <div id="theme-switcher" role="region" aria-label="Theme Switcher">
+        <button class="theme-btn" onclick="setTheme('wood')" data-theme="wood" aria-label="Wood Theme">
+            <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="5"></circle>
+                <circle cx="12" cy="12" r="1.5"></circle>
+            </svg>
+            <span>Wood</span>
+        </button>
+        <button class="theme-btn active" onclick="setTheme('marble')" data-theme="marble" aria-label="Marble Theme">
+            <svg class="theme-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h12l4 6-10 12L2 9z"></path>
+                <path d="M11 3v18"></path>
+                <path d="M2 9h20"></path>
+            </svg>
+            <span>Marble</span>
+        </button>
     </div>
 
     <!-- Sticky Sliding Task Bar -->
