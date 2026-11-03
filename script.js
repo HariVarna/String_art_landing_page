@@ -540,6 +540,17 @@ function showEmailOption() {
     document.getElementById('modal-options').style.display = 'none';
     document.getElementById('modal-email-view').style.display = 'block';
     document.getElementById('copy-feedback').textContent = '';
+    const btn = document.getElementById('copy-email-btn');
+    if (btn) {
+        btn.classList.remove('copied');
+        btn.innerHTML = `
+            <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copy-btn-text">Copy</span>
+        `;
+    }
 }
 
 function showOptionsView() {
@@ -547,16 +558,44 @@ function showOptionsView() {
     document.getElementById('modal-email-view').style.display = 'none';
 }
 
+let copyTimeout;
 function copyEmail() {
     const email = document.getElementById('email-text').textContent;
+    const btn = document.getElementById('copy-email-btn');
+    const feedback = document.getElementById('copy-feedback');
+
+    const onSuccess = () => {
+        if (feedback) feedback.textContent = 'Email copied to clipboard!';
+        if (btn) {
+            btn.classList.add('copied');
+            btn.innerHTML = `
+                <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span id="copy-btn-text">Copied!</span>
+            `;
+            clearTimeout(copyTimeout);
+            copyTimeout = setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = `
+                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span id="copy-btn-text">Copy</span>
+                `;
+            }, 2500);
+        }
+    };
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(() => {
-            document.getElementById('copy-feedback').textContent = 'Email copied to clipboard!';
-        }).catch(() => {
+        navigator.clipboard.writeText(email).then(onSuccess).catch(() => {
             fallbackCopy(email);
+            onSuccess();
         });
     } else {
         fallbackCopy(email);
+        onSuccess();
     }
 }
 
