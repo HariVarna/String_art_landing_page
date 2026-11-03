@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The String Art Studio | Handcrafted Timeless Art</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +62,15 @@
             <!-- Hero Overlay (Fades out when animation starts) -->
             <div id="hero-overlay">
                 <h1 class="cursive-brand">The String Art Studio</h1>
+                <p class="hero-tagline">Handcrafted Timeless Art</p>
+                <div class="scroll-cue" aria-hidden="true">
+                    <span>Scroll to craft</span>
+                    <div class="scroll-cue-arrow">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -89,7 +98,7 @@
                     <p>Your story, told through geometric harmony and tactile warmth.</p>
                 </div>
                 <div class="col img-col">
-                    <img src="our_craft.jpeg" alt="Detail of handmade string art" class="rounded-img" />
+                    <img src="our_craft.jpeg" alt="Detail of handmade string art" class="rounded-img" loading="lazy" />
                 </div>
             </div>
         </section>
@@ -103,26 +112,29 @@
                 </div>
                 
                 <div class="product-grid">
-                    <div class="product-card">
+                    <div class="product-card" onclick="openOrderModal()" role="button" tabindex="0" aria-label="Inquire about Face Portraits">
                         <div class="card-img-wrap">
-                            <img src="man_potrait.png" alt="Face Portraits">
+                            <img src="man_potrait.png" alt="Face Portraits" loading="lazy">
                         </div>
                         <h3>Face Portraits</h3>
                         <p>Turn a loved one's face into a masterpiece. Intricate detailing captures facial expressions flawlessly in threads.</p>
+                        <span class="card-cta">Inquire this style &rarr;</span>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" onclick="openOrderModal()" role="button" tabindex="0" aria-label="Inquire about Couple Portraits">
                         <div class="card-img-wrap">
-                            <img src="couple_potrait.png" alt="Couple Portraits">
+                            <img src="couple_potrait.png" alt="Couple Portraits" loading="lazy">
                         </div>
                         <h3>Couple Portraits</h3>
                         <p>Capture the depth of your bond. We meticulously translate your favorite photographs into a breathtaking interplay of shadows and delicate thread lines.</p>
+                        <span class="card-cta">Inquire this style &rarr;</span>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" onclick="openOrderModal()" role="button" tabindex="0" aria-label="Inquire about Pet Portraits">
                         <div class="card-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pet Portraits">
+                            <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pet Portraits" loading="lazy">
                         </div>
                         <h3>Pet Portraits</h3>
                         <p>Honor your beloved furry companions with a portrait that perfectly captures their spirit and warmth through thousands of precise, loving weaves.</p>
+                        <span class="card-cta">Inquire this style &rarr;</span>
                     </div>
                 </div>
             </div>
@@ -210,31 +222,37 @@
     </footer>
 
     <!-- Order Modal -->
-    <div id="order-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeOrderModal()">×</button>
-            <h3 class="modal-title">Begin Your Order</h3>
+    <div id="order-modal" class="modal-overlay" onclick="handleBackdropClick(event)">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+            <button class="close-modal" onclick="closeOrderModal()" aria-label="Close modal">×</button>
+            <h3 id="modal-title-text" class="modal-title">Begin Your Order</h3>
             <p class="modal-subtitle">Choose your preferred way to reach out to us.</p>
             
             <div id="modal-options">
                 <a href="https://www.instagram.com/_the._.string._.art._.studio_/" target="_blank" rel="noopener noreferrer" class="modal-option-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    Instagram
+                    <span>Instagram Direct</span>
                 </a>
                 <button class="modal-option-btn" onclick="showEmailOption()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    Email
+                    <span>Email Studio</span>
                 </button>
             </div>
 
             <div id="modal-email-view" style="display: none;">
-                <p>Copy our email address below:</p>
+                <p>Reach out directly to our studio:</p>
                 <div class="email-copy-box">
                     <span id="email-text">thestringartstudio@gmail.com</span>
                     <button class="btn btn-primary btn-sm" onclick="copyEmail()">Copy</button>
                 </div>
+                <div class="email-actions-row">
+                    <a href="mailto:thestringartstudio@gmail.com?subject=Custom%20String%20Art%20Inquiry" class="btn btn-secondary mailto-direct-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span>Open in Mail App</span>
+                    </a>
+                </div>
                 <p id="copy-feedback" class="copy-feedback"></p>
-                <button class="back-btn" onclick="showOptionsView()">← Back</button>
+                <button class="back-btn" onclick="showOptionsView()">← Back to options</button>
             </div>
         </div>
     </div>

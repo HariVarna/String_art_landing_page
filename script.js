@@ -27,7 +27,16 @@ function resize() {
     // Scale board based on screen width for side-by-side mode later
     radius = Math.min(width, height) * 0.35; 
 }
-window.addEventListener("resize", resize);
+window.addEventListener("resize", () => {
+    resize();
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+});
+window.addEventListener("orientationchange", () => {
+    setTimeout(() => {
+        resize();
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, 150);
+});
 resize();
 
 // Images Loading
@@ -75,6 +84,10 @@ let currentTheme = {
 };
 
 function setTheme(themeName) {
+    try {
+        localStorage.setItem('string_art_theme', themeName);
+    } catch (e) {}
+
     document.documentElement.setAttribute('data-theme', themeName);
     
     // Update active button
@@ -102,8 +115,13 @@ function setTheme(themeName) {
         };
     }
 }
-// Default Theme
-setTheme('marble');
+// Default or Stored Theme
+let initialTheme = 'marble';
+try {
+    const stored = localStorage.getItem('string_art_theme');
+    if (stored === 'wood' || stored === 'marble') initialTheme = stored;
+} catch (e) {}
+setTheme(initialTheme);
 
 // GSAP State Object
 const state = {
@@ -345,19 +363,40 @@ const tl = gsap.timeline({
 });
 
 // Dynamic values helper functions for responsiveness
-const getSideOffset = () => {
-    const isMobile = window.innerWidth <= 768;
-    return window.innerWidth * (isMobile ? 0.15 : 0.22); // Closer on mobile (15% vs 22%)
+const isMobilePortrait = () => window.innerWidth <= 768 && window.innerHeight >= window.innerWidth;
+
+const getSideOffsetX = () => {
+    if (isMobilePortrait()) return 0;
+    const isTablet = window.innerWidth <= 900;
+    return window.innerWidth * (isTablet ? 0.20 : 0.22);
+};
+
+const getSideOffsetY = () => {
+    if (isMobilePortrait()) {
+        // Vertical separation in mobile portrait (top: reference, bottom: canvas board)
+        return window.innerHeight * 0.18;
+    }
+    return 0;
 };
 
 const getBoardSplitScale = () => {
+    if (isMobilePortrait()) {
+        return 0.76;
+    }
     const isMobile = window.innerWidth <= 768;
     return isMobile ? 0.58 : 1.0;
 };
 
 const getBoardPresentationScale = () => {
+    if (isMobilePortrait()) {
+        return 0.84;
+    }
     const isMobile = window.innerWidth <= 768;
     return isMobile ? 0.70 : 1.05;
+};
+
+const getCameraZoom = () => {
+    return isMobilePortrait() ? 2.5 : 3.5;
 };
 
 // PHASE 1: Board drops & Hero fades
@@ -379,7 +418,7 @@ tl.fromTo(state,
 
 // PHASE 2: Extreme Close-Up (Camera follows nail smoothly)
 tl.to(state, { 
-    cameraZoom: 3.5, 
+    cameraZoom: () => getCameraZoom(), 
     cameraPanWeight: 1, 
     duration: 1.5, 
     ease: "power2.inOut" 
@@ -399,18 +438,18 @@ tl.to(state, {
 }, "zoomOut");
 tl.to(state, { nailProgress: 1, duration: 3, ease: "power1.inOut" }, "zoomOut");
 
-// PHASE 5: Split Screen Setup for Luffy Images
+// PHASE 5: Split Screen Setup for Luffy Images (Stacked vertically on mobile portrait, side-by-side on desktop)
 tl.to(state, { 
-    boardX: () => getSideOffset(), 
-    boardY: 0, 
+    boardX: () => getSideOffsetX(), 
+    boardY: () => getSideOffsetY(), 
     boardScale: () => getBoardSplitScale(), 
     duration: 1.5, 
     ease: "power2.inOut" 
 }, "split");
 tl.to(state, { refWrapperOpacity: 1, duration: 0.5 }, "split");
 tl.to(state, { 
-    refWrapperX: () => -getSideOffset(), 
-    refWrapperY: 0, 
+    refWrapperX: () => -getSideOffsetX(), 
+    refWrapperY: () => -getSideOffsetY(), 
     duration: 1.5, 
     ease: "power2.inOut" 
 }, "split");
@@ -429,8 +468,18 @@ tl.to(state, { stringArtImageFade: 1, duration: 5, ease: "power2.inOut" }, "time
 tl.to(state, { boardScale: () => getBoardPresentationScale(), duration: 0.5 }, "finish");
 
 // PHASE 9: Scroll into Site Content
-tl.to(state, { boardY: () => -window.innerHeight * 0.4, boardAlpha: 0, duration: 1.5, ease: "power1.inOut" }, "exit");
-tl.to(state, { refWrapperOpacity: 0, refWrapperY: () => -window.innerHeight * 0.4, duration: 1.5, ease: "power1.inOut" }, "exit");
+tl.to(state, { 
+    boardY: () => -window.innerHeight * 0.45, 
+    boardAlpha: 0, 
+    duration: 1.5, 
+    ease: "power1.inOut" 
+}, "exit");
+tl.to(state, { 
+    refWrapperOpacity: 0, 
+    refWrapperY: () => -window.innerHeight * 0.45, 
+    duration: 1.5, 
+    ease: "power1.inOut" 
+}, "exit");
 
 // Reveal Sticky Title Bar after the scroll animation sequence
 ScrollTrigger.create({
@@ -441,7 +490,7 @@ ScrollTrigger.create({
 });
 
 // ------------------------------------------------------------------
-// Modal Logic
+// Modal & Interaction Logic
 // ------------------------------------------------------------------
 function openOrderModal() {
     document.getElementById('order-modal').classList.add('active');
@@ -451,6 +500,41 @@ function openOrderModal() {
 function closeOrderModal() {
     document.getElementById('order-modal').classList.remove('active');
 }
+
+function handleBackdropClick(e) {
+    if (e.target.id === 'order-modal') {
+        closeOrderModal();
+    }
+}
+
+// Close modal on Escape
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeOrderModal();
+});
+
+// Smooth anchor scrolling using Lenis
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#') {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                lenis.scrollTo(targetEl, { offset: -70 });
+            }
+        }
+    });
+});
+
+// Allow Enter/Space on keyboard accessible product cards
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openOrderModal();
+        }
+    });
+});
 
 function showEmailOption() {
     document.getElementById('modal-options').style.display = 'none';
@@ -465,10 +549,27 @@ function showOptionsView() {
 
 function copyEmail() {
     const email = document.getElementById('email-text').textContent;
-    navigator.clipboard.writeText(email).then(() => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+            document.getElementById('copy-feedback').textContent = 'Email copied to clipboard!';
+        }).catch(() => {
+            fallbackCopy(email);
+        });
+    } else {
+        fallbackCopy(email);
+    }
+}
+
+function fallbackCopy(text) {
+    try {
+        const tempInput = document.createElement("input");
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
         document.getElementById('copy-feedback').textContent = 'Email copied to clipboard!';
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
-        document.getElementById('copy-feedback').textContent = 'Failed to copy. Please select and copy manually.';
-    });
+    } catch(err) {
+        document.getElementById('copy-feedback').textContent = 'Please copy: ' + text;
+    }
 }
